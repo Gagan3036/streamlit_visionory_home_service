@@ -62,6 +62,8 @@ def download_and_load_model():
     download_url = f'http://download.tensorflow.org/models/{model_name}_2018_05_29.tar.gz'
     model_dir = os.path.join(tempfile.gettempdir(), 'deeplab_model')
     saved_model_path = os.path.join(r"deeplab_model", 'saved_model')
+    if not os.path.exists(saved_model_path):
+        os.makedirs(saved_model_path)
 
     if os.path.exists(saved_model_path):
         print("Loading saved model...")
