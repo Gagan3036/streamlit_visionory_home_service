@@ -4,7 +4,6 @@ transformers
 pillow
 tensorflow
 opencv-python
-matplotlibs
 langchain-huggingface
 huggingface_hub
 langchain

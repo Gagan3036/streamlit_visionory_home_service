@@ -3,10 +3,9 @@ import numpy as np
 import os
 from PIL import Image
 import tempfile
+from .colloring import DeepLabModel, label_names, download_and_load_model
 
-# Placeholder for your model and label names
-MODEL = None  
-label_names = {}  # Replace with your actual label mapping
+MODEL = download_and_load_model() 
 
 st.title("Image Labeling and Processing App")
 
