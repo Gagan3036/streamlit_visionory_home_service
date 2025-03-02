@@ -6,17 +6,16 @@ import tempfile
 from suggestion import get_furniture_category_suggestion
 from urllib.request import urlopen
 
-# ✅ Use `st.query_params` instead of `st.experimental_get_query_params`
+# Use the new way to get query parameters
 query_params = st.query_params
 
-# **API Mode Handling**
-if "api" in query_params:
+# Check for API request
+if "api" in query_params and query_params["api"] == "true":
     st.write("API Mode Detected")
 
-    # Check if `image_url` is provided
-    image_url = query_params.get("image_url", "")
-
-    if image_url:
+    # Check if an image URL is provided
+    if "image_url" in query_params:
+        image_url = query_params["image_url"]
         st.write(f"Processing Image from URL: {image_url}")
 
         try:
@@ -28,13 +27,13 @@ if "api" in query_params:
                 image.convert("RGB").save(temp_file.name)  
                 temp_path = temp_file.name
 
-            # Get suggestion
+            # Process image and get suggestion
             suggestion = get_furniture_category_suggestion(temp_path)
 
             # Clean up temporary file
             os.unlink(temp_path)
 
-            # Return API Response as JSON
+            # Display API response as JSON
             st.json({"suggestions": suggestion})
 
         except Exception as e:
@@ -43,36 +42,28 @@ if "api" in query_params:
     else:
         st.json({"error": "Please provide an image_url parameter."})
 
-# **Normal Streamlit UI Mode**
 else:
+    # Normal Streamlit UI
     st.title("Furniture Category Suggestion")
     st.write("Upload an image of furniture, and get category suggestions.")
 
-    uploaded_file = st.file_uploader(
-        "Choose an image...",
-        type=["jpg", "jpeg", "png", "bmp", "gif", "tiff", "webp"]
-    )
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png", "bmp", "gif", "tiff", "webp"])
 
     if uploaded_file is not None:
         try:
-            # Load and display image
             image = Image.open(uploaded_file)
             st.image(image, caption="Uploaded Image", use_column_width=True)
 
-            # Convert image to temporary file
             with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as temp_file:
                 image.convert("RGB").save(temp_file.name)  
                 temp_path = temp_file.name
 
-            # Process image and get suggestion
             with st.spinner("Processing... Please wait."):
                 suggestion = get_furniture_category_suggestion(temp_path)
 
-            # Display the result
             st.success("Furniture Category Suggestions:")
             st.write(suggestion)
 
-            # Clean up
             os.unlink(temp_path)
 
         except Exception as e:
