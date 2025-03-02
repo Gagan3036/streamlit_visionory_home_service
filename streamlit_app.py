@@ -3,7 +3,7 @@ import numpy as np
 import os
 from PIL import Image
 import tempfile
-from .colloring import DeepLabModel, label_names, download_and_load_model
+from colloring import DeepLabModel, label_names, download_and_load_model
 
 MODEL = download_and_load_model() 
 
