@@ -7,6 +7,7 @@ import tensorflow as tf
 from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+from .colloring import DeepLabModel, label_names, download_and_load_model
 
 class DeepLabModel(object):
     """Class to load DeepLab model and run inference."""
