@@ -1,10 +1,5 @@
-streamlit
-uvicorn
-transformers
-pillow
 tensorflow
-opencv-python
-langchain-huggingface
-huggingface_hub
-langchain
-python-dotenv
+numpy
+pillow
+matplotlib
+streamlit
