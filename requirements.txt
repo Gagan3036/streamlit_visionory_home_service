@@ -4,3 +4,4 @@ pillow
 matplotlib
 streamlit
 transformers
+tf-keras
