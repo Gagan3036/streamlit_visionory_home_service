@@ -6,7 +6,7 @@ import tempfile
 from suggestion import get_furniture_category_suggestion
 
 # Check for API request
-query_params = st.query_params()
+query_params = st.experimental_get_query_params()
 if "api" in query_params:
     st.write("API Mode Detected")
 
