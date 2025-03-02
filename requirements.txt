@@ -5,3 +5,4 @@ matplotlib
 streamlit
 transformers
 tf-keras
+Flask==3.0.3
